@@ -4,5 +4,17 @@ services:
   webapp:
     build: .
     ports:
-      - "5001:5001"  # Host port 5001 -> container port 5001
+      - "5001:5001"  # Maps container's port 5001 to host's port 5001
     restart: always
+
+  jenkins:
+    image: jenkins/jenkins:lts
+    ports:
+      - "8080:8080"   # Jenkins web UI
+      - "50000:50000" # For Jenkins agent connections
+    volumes:
+      - jenkins_home:/var/jenkins_home
+    restart: always
+
+volumes:
+  jenkins_home:
